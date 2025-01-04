@@ -15,7 +15,7 @@ select opt in "List older files" "Move files" "Delete files"; do
             echo "Find files created before: "
             read date
             
-            if [[ "$date" =~ ^(0[1-9])|([1-3][0-9])/(0[1-9])|1[012]/[0-9]{4}$ ]]; then 
+            if [[ "$date" =~ ^(0[1-9])|1[012]/(0[1-9])|([1-3][0-9])/[0-9]{4}$ ]]; then 
                 parsed_date=$(date -d "$date" +"%d/%m/%Y")
             elif [[ "$date" =~ ^[0-9]*[[:space:]](zile|luni|ani|saptamani|days|months|years|weeks)$ ]]; then
                 echo "am gasit"
@@ -42,5 +42,3 @@ select opt in "List older files" "Move files" "Delete files"; do
             ;;
     esac    
 done
-
-
