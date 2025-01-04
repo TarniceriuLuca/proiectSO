@@ -14,7 +14,16 @@ select opt in "List older files" "Move files" "Delete files"; do
         "List older files")
             echo "Find files created before: "
             read date
-            [ echo $date | grep '[1-9]' ] && echo "intre 1 si 31" || echo "altceva"
+            
+            if [[ "$date" =~ ^(0[1-9])|([1-3][0-9])/(0[1-9])|1[012]/[0-9]{4}$ ]]; then 
+                parsed_date=$(date -d "$date" +"%d/%m/%Y")
+            elif [[ "$date" =~ ^[0-9]*[[:space:]](zile|luni|ani|saptamani|days|months|years|weeks)$ ]]; then
+                echo "am gasit"
+            else
+                echo "nu am gasit"
+            fi
+            
+#            [ echo $date | grep -E '[1-9]' ] && echo "intre 1 si 9" || echo "altceva"
             ;;
        
 #        
