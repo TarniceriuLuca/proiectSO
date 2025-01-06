@@ -17,7 +17,7 @@ DEBUG="off"
 
 PS3='Enter your option: '
 
-select opt in "List older files" "Move files" "Periodic file deletion" "Delete file" "Rename files" "Edit files" "List file size" "Search files by extension" "Exit"; do
+select opt in "List older files" "Move files" "Periodic file deletion" "Delete file" "Rename files" "Edit files" "List file size" "Search files by extension" "File compression" "Exit"; do
 
     case $opt in
         "List older files")
@@ -344,10 +344,36 @@ select opt in "List older files" "Move files" "Periodic file deletion" "Delete f
             
             find $search_directory -regex ".*\.$final_search_extension$"
             ;;
+
+        "File compression")
+            echo "Enter directory path to search in: "
+            read search_directory_for_extract
+            echo "Enter extension to search by: "
+            read search_extension_for_extract
+#            echo "entar nume"
+#            read nume
+            
+            if [[ "$search_extension_for_extract" =~ ^\.[A-Za-z0-9]* ]]; then 
+                final_search_extension=$(echo $search_extension_for_extract | awk -F '.' '{print $2}')
+            else
+                final_search_extension_for_extract=$search_extension_for_extract
+            fi
+            
+            find $search_directory_for_extract -regex ".*\.$final_search_extension_for_extract$" -exec tar -czvf archive.tar.gz {} +
+#            cat archive_files >fisier_test.txt
+            
+#            | xargs -I {} tar -czvf archive.tar.gz {}
+#            mkdir archive_files
+#            find $search_directory_for_extract -regex ".*\.$final_search_extension_for_extract$" | xargs -I {} mv {} archive_files
+#            ls archive_files | xargs -I {} tar -czvf $nume.tar.gz {}
+#            
+            ;;
+            
+            
+            
             
         "Exit")
             break
-            
             echo "Exited program" >> out.log
             if [[ DEBUG == "on" ]]; then
                 echo "Exited program"
@@ -365,5 +391,3 @@ done
 
 ## cauta toate fisierele cu extensia .old (sau altceva) din directorul dat, le muta in alt director si il arhiveaza
 ##/home/themartianx/Informatica/SO1/proiect/testfile
-
-
